@@ -11,9 +11,66 @@ package com.example.mylive.vo;
  * @Copyright: 2018
  */
 public class SelectVo {
+    /**
+     * 日期
+     */
     private int d;
+    /**
+     * 是否选中
+     */
     private boolean isSelect;
+    /**
+     * 是否是夜班
+     */
     private boolean isNight;
+    /**
+     * 是否第几个夜班
+     */
+    private int selectNight;
+    /**
+     * 是否第几个白天
+     */
+    private int selectDay;
+    /**
+     * 是否休息
+     */
+    private int isRest;
+    /**
+     * 第几个休
+     */
+    private int selectRest;
+
+    public int getSelectRest() {
+        return selectRest;
+    }
+
+    public void setSelectRest(int selectRest) {
+        this.selectRest = selectRest;
+    }
+
+    public int getIsRest() {
+        return isRest;
+    }
+
+    public void setIsRest(int isRest) {
+        this.isRest = isRest;
+    }
+
+    public int getSelectNight() {
+        return selectNight;
+    }
+
+    public void setSelectNight(int selectNight) {
+        this.selectNight = selectNight;
+    }
+
+    public int getSelectDay() {
+        return selectDay;
+    }
+
+    public void setSelectDay(int selectDay) {
+        this.selectDay = selectDay;
+    }
 
     public int getD() {
         return d;

@@ -266,4 +266,15 @@ public class Util {
         buffer.append(c.get(Calendar.DATE) + "日");
         return buffer.toString();
     }
+
+    /**
+     * @param selectNight
+     * @param select
+     * @param type
+     * @return
+     */
+    public int getDayOrNightOrRest(int selectNight, boolean select, int type) {
+
+        return 0;
+    }
 }

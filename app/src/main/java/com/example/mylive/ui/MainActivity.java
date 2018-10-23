@@ -68,17 +68,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             } else {
                 selectVo.setSelect(false);
             }
-            if (i%2==0){
-                selectVo.setNight(true);
-            }else {
-                selectVo.setNight(false);
-            }
+            setDataType(selectVo,d);
             selectVo.setD(i);
             mLists.add(selectVo);
         }
         return mLists;
     }
 
+    private void setDataType(SelectVo vo,int d) {
+
+    }
 
     private void initData() {
         mUtil = Util.get_Instance(mContext);
