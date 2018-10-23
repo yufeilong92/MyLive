@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="girl_title">
+        <item name="Mon">星期一</item>
+        <item name="Tues">星期二</item>
+        <item name="Wed">星期三</item>
+        <item name="Thur">星期四</item>
+        <item name="Fri">星期五</item>
+        <item name="Sat">星期六</item>
+        <item name="Sun">星期日</item>
+    </string-array>
+</resources>
