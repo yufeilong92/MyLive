@@ -1,5 +1,6 @@
 package com.example.mylive.mvp.contract;
 
+import com.example.mylive.vo.DataYMDWVo;
 import com.example.mylive.vo.SelectVo;
 
 import java.util.ArrayList;
@@ -16,14 +17,17 @@ import java.util.ArrayList;
  */
 public interface MainContract {
     interface Model {
-       public ArrayList<SelectVo> getIniTSelectLists(int dayNum);
+        public ArrayList<SelectVo> getIniTSelectLists(ArrayList<DataYMDWVo> mTimteDatas, int dayNum);
+
+        public ArrayList<SelectVo> getSaveTimeDatas(ArrayList<DataYMDWVo> datas, int selectDay, int daynum, int type);
     }
 
     interface View {
-         public void initModelView(Model model, View view);
     }
 
     interface Presenter {
-        public ArrayList<SelectVo> getInitSelectList();
+        public void initModelView(Model model, View view);
+
+        public ArrayList<SelectVo> getInitSelectList(ArrayList<DataYMDWVo> mTimteDatas);
     }
 }

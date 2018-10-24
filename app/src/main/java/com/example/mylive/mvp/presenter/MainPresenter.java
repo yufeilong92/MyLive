@@ -1,6 +1,10 @@
 package com.example.mylive.mvp.presenter;
 
 import com.example.mylive.mvp.contract.MainContract;
+import com.example.mylive.vo.DataYMDWVo;
+import com.example.mylive.vo.SelectVo;
+
+import java.util.ArrayList;
 
 /**
  * @version V 1.0 xxxxxxxx
@@ -13,4 +17,17 @@ import com.example.mylive.mvp.contract.MainContract;
  * @Copyright: 2018
  */
 public class MainPresenter implements MainContract.Presenter {
+    MainContract.Model model;
+    MainContract.View view;
+
+    @Override
+    public void initModelView(MainContract.Model model, MainContract.View view) {
+        this.model = model;
+        this.view = view;
+    }
+
+    @Override
+    public ArrayList<SelectVo> getInitSelectList(ArrayList<DataYMDWVo> mTimteDatas) {
+        return model.getIniTSelectLists(mTimteDatas, mTimteDatas.size());
+    }
 }

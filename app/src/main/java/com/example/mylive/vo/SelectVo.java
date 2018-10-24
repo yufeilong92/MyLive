@@ -20,56 +20,16 @@ public class SelectVo {
      */
     private boolean isSelect;
     /**
-     * 是否是夜班
+     * 0 为休息 1为夜班 2 白班
      */
-    private boolean isNight;
-    /**
-     * 是否第几个夜班
-     */
-    private int selectNight;
-    /**
-     * 是否第几个白天
-     */
-    private int selectDay;
-    /**
-     * 是否休息
-     */
-    private int isRest;
-    /**
-     * 第几个休
-     */
-    private int selectRest;
+    private int SunnyOrDayOrNight;
 
-    public int getSelectRest() {
-        return selectRest;
+    public int getSunnyOrDayOrNight() {
+        return SunnyOrDayOrNight;
     }
 
-    public void setSelectRest(int selectRest) {
-        this.selectRest = selectRest;
-    }
-
-    public int getIsRest() {
-        return isRest;
-    }
-
-    public void setIsRest(int isRest) {
-        this.isRest = isRest;
-    }
-
-    public int getSelectNight() {
-        return selectNight;
-    }
-
-    public void setSelectNight(int selectNight) {
-        this.selectNight = selectNight;
-    }
-
-    public int getSelectDay() {
-        return selectDay;
-    }
-
-    public void setSelectDay(int selectDay) {
-        this.selectDay = selectDay;
+    public void setSunnyOrDayOrNight(int sunnyOrDayOrNight) {
+        SunnyOrDayOrNight = sunnyOrDayOrNight;
     }
 
     public int getD() {
@@ -88,11 +48,5 @@ public class SelectVo {
         isSelect = select;
     }
 
-    public boolean isNight() {
-        return isNight;
-    }
 
-    public void setNight(boolean night) {
-        isNight = night;
-    }
 }

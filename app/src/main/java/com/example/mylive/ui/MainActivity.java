@@ -3,15 +3,21 @@ package com.example.mylive.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mylive.R;
 import com.example.mylive.adapter.GridContentAdapter;
 import com.example.mylive.adapter.GridTitleAdapter;
 import com.example.mylive.base.BaseActivity;
+import com.example.mylive.mvp.contract.MainContract;
+import com.example.mylive.mvp.model.MainModel;
+import com.example.mylive.mvp.presenter.MainPresenter;
 import com.example.mylive.utils.Util;
 import com.example.mylive.vo.DataYMDWVo;
 import com.example.mylive.vo.SelectVo;
@@ -30,7 +36,7 @@ import java.util.HashMap;
  * @verdescript 版本号 修改时间  修改人 修改的概要说明
  * @Copyright: 2018.10.22
  */
-public class MainActivity extends BaseActivity implements View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, MainContract.View {
     private static final String TAG = "【" + MainActivity.class + "】==";
     private GridView mGridTitle;
     private GridView mGridContent;
@@ -39,7 +45,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private ImageView mIvLeft;
     private ImageView mIvRight;
     private TextView mTvTitleTime;
-/*
+    private MainPresenter mPresenter;
+    /*
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,22 +71,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             DataYMDWVo vo = mDates.get(i);
             SelectVo selectVo = new SelectVo();
             if (vo.getDay().equals(String.valueOf(d))) {
-               selectVo.setSelect(true);
+                selectVo.setSelect(true);
             } else {
                 selectVo.setSelect(false);
             }
-            setDataType(selectVo,d);
+            setDataType(selectVo, d);
             selectVo.setD(i);
             mLists.add(selectVo);
         }
         return mLists;
     }
 
-    private void setDataType(SelectVo vo,int d) {
+    private void setDataType(SelectVo vo, int d) {
 
     }
 
     private void initData() {
+        mPresenter = new MainPresenter();
+        mPresenter.initModelView(new MainModel(), this);
         mUtil = Util.get_Instance(mContext);
         String time = mUtil.getDataTime(Calendar.getInstance());
         mTvTitleTime.setText(time);
@@ -89,8 +98,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         String firstData = mUtil.getFirstOrLastDate(0);
         String lastDate = mUtil.getFirstOrLastDate(1);
         ArrayList<DataYMDWVo> mDates = mUtil.getDatas(firstData, lastDate);
-        ArrayList<SelectVo> mSelectDatas = getSelectDatas(mDates);
-        GridContentAdapter contentAdapter = new GridContentAdapter(mContext, mDates, mSelectDatas);
+        ArrayList<SelectVo> selectList = mPresenter.getInitSelectList(mDates);
+        GridContentAdapter contentAdapter = new GridContentAdapter(mContext, mDates, selectList);
         mGridContent.setAdapter(contentAdapter);
 
     }
@@ -121,5 +130,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
 
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.setting:
+                Toast.makeText(mContext, "点击设置", Toast.LENGTH_SHORT).show();
+                break;
+            case 0:
+                break;
+            default:
+
+        }
+        return false;
     }
 }

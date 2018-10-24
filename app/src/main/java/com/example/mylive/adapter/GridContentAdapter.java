@@ -71,7 +71,7 @@ public class GridContentAdapter extends BaseAdapter {
         } else {
             holder.mTvContent.setBackgroundResource(R.drawable.select_n);
         }
-        boolean night = selectVo.isNight();
+        boolean night = true;
         if (night){
             holder.mIvNightSunny.setImageResource(R.mipmap.nightday);
         }else {
