@@ -30,4 +30,7 @@ public class MainPresenter implements MainContract.Presenter {
     public ArrayList<SelectVo> getInitSelectList(ArrayList<DataYMDWVo> mTimteDatas) {
         return model.getIniTSelectLists(mTimteDatas, mTimteDatas.size());
     }
+    public ArrayList<String> getTypeNightOrSun(int type){
+        return model.getTypeNightOrSun(type);
+    }
 }

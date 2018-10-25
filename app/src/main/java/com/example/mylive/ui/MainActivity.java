@@ -18,6 +18,7 @@ import com.example.mylive.base.BaseActivity;
 import com.example.mylive.mvp.contract.MainContract;
 import com.example.mylive.mvp.model.MainModel;
 import com.example.mylive.mvp.presenter.MainPresenter;
+import com.example.mylive.utils.DialogUtil;
 import com.example.mylive.utils.Util;
 import com.example.mylive.vo.DataYMDWVo;
 import com.example.mylive.vo.SelectVo;
@@ -142,6 +143,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.setting:
+                DialogUtil dialogUtil = DialogUtil.get_Instance(mContext);
+                dialogUtil.ShowSettingDialog(mPresenter,true);
+
                 Toast.makeText(mContext, "点击设置", Toast.LENGTH_SHORT).show();
                 break;
             case 0:

@@ -59,8 +59,44 @@ public class MainModel implements MainContract.Model {
     @Override
     public ArrayList<SelectVo> getSaveTimeDatas(ArrayList<DataYMDWVo> datas, int selectDay, int daynum, int type) {
         ArrayList<SelectVo> selectVos = getIniTSelectLists(datas, datas.size());
+        TypeManage manage = new TypeManage();
+        ArrayList<SelectVo> selectLists = null;
+        switch (type) {
+            case 0://夜间
+                selectLists = manage.selectType(new NightList(), selectDay, selectVos, daynum);
+                break;
+            case 1://白天
+                selectLists = manage.selectType(new SunnyList(), selectDay, selectVos, daynum);
+                break;
+            default:
 
+        }
+        return selectLists;
+    }
 
+    @Override
+    public ArrayList<String> getTypeNightOrSun(int type) {
+        ArrayList<String> list = new ArrayList<>();
+        switch (type) {
+            case DataManageVo.NIGHTTYPE://夜班
+                list.clear();
+                list.add("一");
+                list.add("二");
+                break;
+            case DataManageVo.SUNNYTYPE://白班
+                list.clear();
+                list.add("一");
+                list.add("二");
+                list.add("三");
+                list.add("四");
+                break;
+        }
+
+        return list;
+    }
+
+    @Override
+    public ArrayList<String> getTypeDayNubmer(int type) {
         return null;
     }
 
@@ -113,33 +149,116 @@ public class MainModel implements MainContract.Model {
                 int j = i + 1;
                 switch (selectDay) {
                     case 0://第一天夜班 正好月初为第一天上白班
-                        if (numday == 1) {
+                    /*    if (numday == 1) {
                             if ((i + 1) == numday) {
-                                addItem(dates, dataManageVo, length, i, j);
+                                //差天数
+                                int bad = length / 8;
+                                for (int k = 0; k < bad + 1; k++) {
+                                    i += k * 8;
+                                    j += k * 8;
+                                    addItem(dates, dataManageVo, length, i, j);
+                                }
                             }
                         } else {
                             //夜间
 //                            差天数
                             int mistake = length - numday;
-                            int bad = mistake / 8;
+                            *//**
+                     * 往后算
+                     *//*
+                            int q = mistake / 8;
+                            *//**
+                     * 往前算
+                     *//*
+                            int bad = numday / 8;
                             //如果bad 等于0 就是一轮
 //                            否则就是倍循环
                             if (bad == 0) {
-                                addItem(dates, dataManageVo, length, i, j);
+                                for (int k = 0; k < bad + 1; k++) {
+                                    i -= (bad+1)-k * 8;
+                                    j -= (bad+1)-k * 8;
+                                    addItem(dates, dataManageVo, length, i, j);
+                                }
+                                //重新获取倍数，在倍数加一
+                                int n = length / 8;
+                                for (int k = 0; k < n + 1; k++) {
+                                    i += k * 8;
+                                    j += k * 8;
+                                    addItem(dates, dataManageVo, length, i, j);
+                                }
                             } else {//倍数
-                                int u = mistake - 8 * bad;
-                                int num = 0;//循环数
-                                for (int k = 0; k < bad; k++) {
-                                    num++;
+
+                                for (int k = 0; k < bad + 1; k++) {
+                                    i -= (bad+1)-k * 8;
+                                    j -= (bad+1)-k * 8;
+                                    addItem(dates, dataManageVo, length, i, j);
+                                }
+                                for (int k = 0; k < q + 1; k++) {
+                                    i += k * 8;
+                                    j += k * 8;
                                     addItem(dates, dataManageVo, length, i, j);
                                 }
                             }
 
-                        }
-
+                        }*/
+                        addListData(dates, numday, dataManageVo, length, i, j);
                         break;
                     case 1://第二天夜班
-                        if ((i + 1) == numday) {
+                    /*    if (numday == 1) {
+                            if ((i + 1) == numday) {
+                                //差天数
+                                //差天数
+                                int bad = length / 8;
+                                for (int k = 0; k < bad + 1; k++) {
+                                    i += k * 8;
+                                    j += k * 8;
+                                    addItem(dates, dataManageVo, length, i, j);
+                                }
+                            }
+                        } else {
+                            //夜间
+//                            差天数
+                            int mistake = length - numday;
+                            *//**
+                     * 往后算
+                     *//*
+                            int q = mistake / 8;
+                            *//**
+                     * 往前算
+                     *//*
+                            int bad = numday / 8;
+                            //如果bad 等于0 就是一轮
+//                            否则就是倍循环
+                            if (bad == 0) {
+                                for (int k = 0; k < bad + 1; k++) {
+                                    i -= (bad+1)-k * 8;
+                                    j -= (bad+1)-k * 8;
+                                    addItem(dates, dataManageVo, length, i, j);
+                                }
+                                //重新获取倍数，在倍数加一
+                                int n = length / 8;
+                                for (int k = 0; k < n + 1; k++) {
+                                    i += k * 8;
+                                    j += k * 8;
+                                    addItem(dates, dataManageVo, length, i, j);
+                                }
+                            } else {//倍数
+
+                                for (int k = 0; k < bad + 1; k++) {
+                                    i -= (bad+1)-k * 8;
+                                    j -= (bad+1)-k * 8;
+                                    addItem(dates, dataManageVo, length, i, j);
+                                }
+                                for (int k = 0; k < q + 1; k++) {
+                                    i += k * 8;
+                                    j += k * 8;
+                                    addItem(dates, dataManageVo, length, i, j);
+                                }
+                            }
+
+                        }*/
+                        addListData(dates, numday, dataManageVo, length, i, j);
+                       /* if ((i + 1) == numday) {
                             //夜间
                             if (j - 2 > 0) {
 
@@ -178,103 +297,101 @@ public class MainModel implements MainContract.Model {
 
                                 SelectVo selectVo3 = dates.get(i + 5);
                                 selectVo3.setSunnyOrDayOrNight(dataManageVo.SUNNYTYPE);
-                            }
-                        }
-
-                        break;
-                    default:
-
+                            }*/
                 }
 
+                break;
 
             }
+
 
             return dates;
         }
 
-        /**
-         * @param dates        数据集合
-         * @param dataManageVo 管理器
-         * @param length       总数
-         * @param i            当前循环坐标
-         * @param j            当前循环坐标+1
-         */
-        private void addItem(ArrayList<SelectVo> dates, DataManageVo dataManageVo, int length, int i, int j) {
-            //前一天
-            if (j - 8 > 0) {
-                SelectVo selectVo1 = dates.get(i - 8);
-                selectVo1.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
-            }
-            if (j - 7 > 0) {
-                SelectVo selectVo1 = dates.get(i - 7);
-                selectVo1.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
-            }
-            if (j - 6 > 0) {
-                SelectVo selectVo1 = dates.get(i - 6);
-                selectVo1.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
-            }
-            if (j - 5 > 0) {
-                SelectVo selectVo1 = dates.get(i - 5);
-                selectVo1.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
-            }
-            if (j - 4 > 0) {
-                SelectVo selectVo1 = dates.get(i - 4);
-                selectVo1.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
-            }
-            if (j - 3 > 0) {
-                SelectVo selectVo = dates.get(i - 3);
-                selectVo.setSunnyOrDayOrNight(dataManageVo.RESTTYPE);
-            }
-            //前一天
-            if (j - 2 > 0) {
-                SelectVo selectVo1 = dates.get(i - 2);
-                selectVo1.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
-            }
-            //下一天
-            if (j - 1 > 0) {
-                SelectVo selectVo2 = dates.get(i - 1);
-                selectVo2.setSunnyOrDayOrNight(dataManageVo.RESTTYPE);
-            }
+    }
 
-            //夜间
-            SelectVo vo = dates.get(i);
-            vo.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
+    /**
+     * @param dates        数据集合
+     * @param dataManageVo 管理器
+     * @param length       总数
+     * @param i            当前循环坐标
+     * @param j            当前循环坐标+1
+     */
+    private void addItem(ArrayList<SelectVo> dates, DataManageVo dataManageVo, int length, int i, int j) {
+        //前一天
+        if (j - 8 > 0) {
+            SelectVo selectVo1 = dates.get(i - 8);
+            selectVo1.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+        }
+        if (j - 7 > 0) {
+            SelectVo selectVo1 = dates.get(i - 7);
+            selectVo1.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
+        }
+        if (j - 6 > 0) {
+            SelectVo selectVo1 = dates.get(i - 6);
+            selectVo1.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
+        }
+        if (j - 5 > 0) {
+            SelectVo selectVo1 = dates.get(i - 5);
+            selectVo1.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
+        }
+        if (j - 4 > 0) {
+            SelectVo selectVo1 = dates.get(i - 4);
+            selectVo1.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
+        }
+        if (j - 3 > 0) {
+            SelectVo selectVo = dates.get(i - 3);
+            selectVo.setSunnyOrDayOrNight(dataManageVo.RESTTYPE);
+        }
+        //前一天
+        if (j - 2 > 0) {
+            SelectVo selectVo1 = dates.get(i - 2);
+            selectVo1.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
+        }
+        //下一天
+        if (j - 1 > 0) {
+            SelectVo selectVo2 = dates.get(i - 1);
+            selectVo2.setSunnyOrDayOrNight(dataManageVo.RESTTYPE);
+        }
+
+        //夜间
+        SelectVo vo = dates.get(i);
+        vo.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
 
 
-            if (j + 1 <= length) {
-                SelectVo selectVo5 = dates.get(i + 1);
-                selectVo5.setSunnyOrDayOrNight(dataManageVo.RESTTYPE);
-            }
-            if (j + 2 <= length) {
-                SelectVo selectVo6 = dates.get(i + 2);
-                selectVo6.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
-            }
-            if (j + 3 <= length) {
-                SelectVo selectVo7 = dates.get(i + 3);
-                selectVo7.setSunnyOrDayOrNight(dataManageVo.RESTTYPE);
-            }
-            // 白天
-            if (j + 4 <= length) {
-                SelectVo selectVo = dates.get(i + 4);
-                selectVo.setSunnyOrDayOrNight(dataManageVo.SUNNYTYPE);
-            }
-            if (j + 5 <= length) {
+        if (j + 1 <= length) {
+            SelectVo selectVo5 = dates.get(i + 1);
+            selectVo5.setSunnyOrDayOrNight(dataManageVo.RESTTYPE);
+        }
+        if (j + 2 <= length) {
+            SelectVo selectVo6 = dates.get(i + 2);
+            selectVo6.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
+        }
+        if (j + 3 <= length) {
+            SelectVo selectVo7 = dates.get(i + 3);
+            selectVo7.setSunnyOrDayOrNight(dataManageVo.RESTTYPE);
+        }
+        // 白天
+        if (j + 4 <= length) {
+            SelectVo selectVo = dates.get(i + 4);
+            selectVo.setSunnyOrDayOrNight(dataManageVo.SUNNYTYPE);
+        }
+        if (j + 5 <= length) {
 
-                SelectVo selectVo1 = dates.get(i + 5);
-                selectVo1.setSunnyOrDayOrNight(dataManageVo.SUNNYTYPE);
-            }
-            if (j + 6 <= length) {
-                SelectVo selectVo2 = dates.get(i + 6);
-                selectVo2.setSunnyOrDayOrNight(dataManageVo.SUNNYTYPE);
-            }
-            if (j + 7 <= length) {
-                SelectVo selectVo3 = dates.get(i + 7);
-                selectVo3.setSunnyOrDayOrNight(dataManageVo.SUNNYTYPE);
-            }
-            if (j + 8 <= length) {
-                SelectVo selectVo3 = dates.get(i + 8);
-                selectVo3.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
-            }
+            SelectVo selectVo1 = dates.get(i + 5);
+            selectVo1.setSunnyOrDayOrNight(dataManageVo.SUNNYTYPE);
+        }
+        if (j + 6 <= length) {
+            SelectVo selectVo2 = dates.get(i + 6);
+            selectVo2.setSunnyOrDayOrNight(dataManageVo.SUNNYTYPE);
+        }
+        if (j + 7 <= length) {
+            SelectVo selectVo3 = dates.get(i + 7);
+            selectVo3.setSunnyOrDayOrNight(dataManageVo.SUNNYTYPE);
+        }
+        if (j + 8 <= length) {
+            SelectVo selectVo3 = dates.get(i + 8);
+            selectVo3.setSunnyOrDayOrNight(dataManageVo.NIGHTTYPE);
         }
     }
 
@@ -297,7 +414,8 @@ public class MainModel implements MainContract.Model {
                 int j = i + 1;
                 switch (selectDay) {
                     case 2://第一天
-                        if ((i + 1) == numday) {
+                        addListData(dates, numday, dataManageVo, length, i, j);
+                       /* if ((i + 1) == numday) {
                             // 白天
 
                             vo.setSunnyOrDayOrNight(dataManageVo.SUNNYTYPE);
@@ -340,10 +458,10 @@ public class MainModel implements MainContract.Model {
                                 SelectVo selectVo7 = dates.get(i + 8);
                                 selectVo7.setSunnyOrDayOrNight(dataManageVo.RESTTYPE);
                             }
-                        }
+                        }*/
                         break;
                     case 3://第二天
-                        if ((i + 1) == numday) {
+                        /*if ((i + 1) == numday) {
                             // 白天
                             //前一天
                             if (j - 1 > 0) {
@@ -385,10 +503,11 @@ public class MainModel implements MainContract.Model {
                                 SelectVo selectVo6 = dates.get(i + 6);
                                 selectVo6.setSunnyOrDayOrNight(dataManageVo.RESTTYPE);
                             }
-                        }
+                        }*/
+                        addListData(dates, numday, dataManageVo, length, i, j);
                         break;
                     case 4://第三天
-                        if ((i + 1) == numday) {
+                      /*  if ((i + 1) == numday) {
                             // 白天
                             //前二天
                             if (j - 2 > 0) {
@@ -431,10 +550,11 @@ public class MainModel implements MainContract.Model {
                                 SelectVo selectVo6 = dates.get(i + 5);
                                 selectVo6.setSunnyOrDayOrNight(dataManageVo.RESTTYPE);
                             }
-                        }
+                        }*/
+                        addListData(dates, numday, dataManageVo, length, i, j);
                         break;
                     case 5://第四天
-                        if ((i + 1) == numday) {
+                       /* if ((i + 1) == numday) {
                             // 白天
                             //前二天
                             if (j - 3 > 0) {
@@ -477,7 +597,8 @@ public class MainModel implements MainContract.Model {
                                 SelectVo selectVo6 = dates.get(i + 4);
                                 selectVo6.setSunnyOrDayOrNight(dataManageVo.RESTTYPE);
                             }
-                        }
+                        }*/
+                        addListData(dates, numday, dataManageVo, length, i, j);
                         break;
 
                     default:
@@ -486,5 +607,73 @@ public class MainModel implements MainContract.Model {
             }
             return dates;
         }
+
     }
+
+    /**
+     * @param dates        数据集合
+     * @param numday       当天集合
+     * @param dataManageVo 管理器
+     * @param length       集合长度
+     * @param i            循环当前坐标
+     * @param j            循环当前坐标+1
+     * @return
+     */
+    private int addListData(ArrayList<SelectVo> dates, int numday, DataManageVo dataManageVo, int length, int i, int j) {
+        if (numday == 1) {
+            if ((i + 1) == numday) {
+                //差天数
+                //差天数
+                int bad = length / 8;
+                for (int k = 0; k < bad + 1; k++) {
+                    i += k * 8;
+                    j += k * 8;
+                    addItem(dates, dataManageVo, length, i, j);
+                }
+            }
+        } else {
+            //夜间
+//                            差天数
+            int mistake = length - numday;
+            /**
+             * 往后算
+             */
+            int q = mistake / 8;
+            /**
+             * 往前算
+             */
+            int bad = numday / 8;
+            //如果bad 等于0 就是一轮
+//                            否则就是倍循环
+            if (bad == 0) {
+                for (int k = 0; k < bad + 1; k++) {
+                    i -= (bad + 1) - k * 8;
+                    j -= (bad + 1) - k * 8;
+                    addItem(dates, dataManageVo, length, i, j);
+                }
+                //重新获取倍数，在倍数加一
+                int n = length / 8;
+                for (int k = 0; k < n + 1; k++) {
+                    i += k * 8;
+                    j += k * 8;
+                    addItem(dates, dataManageVo, length, i, j);
+                }
+            } else {//倍数
+
+                for (int k = 0; k < bad + 1; k++) {
+                    i -= (bad + 1) - k * 8;
+                    j -= (bad + 1) - k * 8;
+                    addItem(dates, dataManageVo, length, i, j);
+                }
+                for (int k = 0; k < q + 1; k++) {
+                    i += k * 8;
+                    j += k * 8;
+                    addItem(dates, dataManageVo, length, i, j);
+                }
+            }
+
+        }
+        return i;
+    }
+
 }

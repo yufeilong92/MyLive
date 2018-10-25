@@ -20,6 +20,10 @@ public interface MainContract {
         public ArrayList<SelectVo> getIniTSelectLists(ArrayList<DataYMDWVo> mTimteDatas, int dayNum);
 
         public ArrayList<SelectVo> getSaveTimeDatas(ArrayList<DataYMDWVo> datas, int selectDay, int daynum, int type);
+
+        public ArrayList<String> getTypeNightOrSun(int type);
+
+        public ArrayList<String> getTypeDayNubmer(int type);
     }
 
     interface View {
@@ -29,5 +33,7 @@ public interface MainContract {
         public void initModelView(Model model, View view);
 
         public ArrayList<SelectVo> getInitSelectList(ArrayList<DataYMDWVo> mTimteDatas);
+
+        public ArrayList<String> getTypeNightOrSun(int type);
     }
 }

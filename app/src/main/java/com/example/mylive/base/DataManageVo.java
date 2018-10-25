@@ -30,14 +30,15 @@ public class DataManageVo {
     /**
      * 休息
      */
-    public final int RESTTYPE = 0;
+    public static final int RESTTYPE = 0;
     /**
      * 夜班
      */
-    public final int NIGHTTYPE = 1;
+    public static final int NIGHTTYPE = 1;
     /**
      * 白班
      */
-    public final int SUNNYTYPE = 2;
+    public static final int SUNNYTYPE = 2;
+
 
 }
