@@ -9,11 +9,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mylive.R;
+import com.example.mylive.base.DataManageVo;
 import com.example.mylive.vo.DataYMDWVo;
 import com.example.mylive.vo.SelectVo;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -76,13 +76,21 @@ public class GridContentAdapter extends BaseAdapter {
         } else {
             holder.mTvContent.setBackgroundResource(R.drawable.select_n);
         }
-        boolean night = true;
-        if (night) {
-            holder.mIvNightSunny.setImageResource(R.mipmap.nightday);
-        } else {
-            holder.mIvNightSunny.setImageResource(R.mipmap.sunnyday_one);
+        int dayOrNight = selectVo.getSunnyOrDayOrNight();
+        switch (dayOrNight) {
+            case DataManageVo.NIGHTTYPE:
+                holder.mIvNightSunny.setImageResource(R.mipmap.nightday);
+                break;
+            case DataManageVo.RESTTYPE:
+                holder.mIvNightSunny.setImageResource(R.mipmap.rest);
+                break;
+            case DataManageVo.SUNNYTYPE:
+                holder.mIvNightSunny.setImageResource(R.mipmap.sunnyday_one);
+                break;
+            default:
+                holder.mIvNightSunny.setImageResource(R.mipmap.rest);
+                break;
         }
-
 
         return convertView;
     }

@@ -43,28 +43,28 @@ public class DataManageVo {
     /**
      * 一
      */
-    public static final int ONE_DAY = 0;
+    public static final int ONE_DAY = 1;
     /**
      * 二
      */
-    public static final int TWO_DAY = 1;
+    public static final int TWO_DAY = 2;
     /**
      * 三
      */
-    public static final int THREE_DAY =2;
+    public static final int THREE_DAY =3;
     /**
      * 四
      */
-    public static final int FOUR_DAY = 3;
+    public static final int FOUR_DAY = 4;
 
     /**
      * 0 为夜间，1为白天
      */
-    private int typeData;
+    private int typeData=DataManageVo.SUNNYTYPE;
     /**
      * 第几天
      */
-    private int typeNumber;
+    private int typeNumber=DataManageVo.ONE_DAY;
     /**
      * 当月天数
      */

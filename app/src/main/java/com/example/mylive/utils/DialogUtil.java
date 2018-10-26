@@ -96,6 +96,8 @@ public class DialogUtil {
 
     public void ShowSettingDialog(final MainPresenter mPresenter, boolean mCancelable) {
         final DataManageVo vo = DataManageVo.get_Instance();
+        vo.setTypeData(DataManageVo.SUNNYTYPE);
+        vo.setTypeNumber(DataManageVo.ONE_DAY);
         final ArrayList<String> nightAndSun = mPresenter.getTypeNightAndSun();
         final ArrayList<String> typeLists = mPresenter.getTypeLists(DataManageVo.SUNNYTYPE);
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -135,6 +137,7 @@ public class DialogUtil {
         mSpinnerNumber.setAdapter(listAdapter);
         builder.create();
         final AlertDialog dialog = builder.show();
+
         mSpinnerType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
