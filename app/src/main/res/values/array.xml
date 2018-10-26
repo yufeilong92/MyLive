@@ -10,4 +10,14 @@
         <item name="Sat">星期六</item>
         <item name="Sun">星期日</item>
     </string-array>
+    <string-array name="type_night_sunny">
+        <item name="sunny">白班</item>
+        <item name="night">夜班</item>
+    </string-array>
+    <string-array name="type_sunny_list">
+        <item name="one">一</item>
+        <item name="two">二</item>
+        <item name="three">三</item>
+        <item name="four">四</item>
+    </string-array>
 </resources>

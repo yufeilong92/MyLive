@@ -3,6 +3,7 @@ package com.example.mylive.ui;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.example.mylive.R;
 import com.example.mylive.adapter.GridContentAdapter;
 import com.example.mylive.adapter.GridTitleAdapter;
 import com.example.mylive.base.BaseActivity;
+import com.example.mylive.base.DataManageVo;
 import com.example.mylive.mvp.contract.MainContract;
 import com.example.mylive.mvp.model.MainModel;
 import com.example.mylive.mvp.presenter.MainPresenter;
@@ -47,6 +49,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private ImageView mIvRight;
     private TextView mTvTitleTime;
     private MainPresenter mPresenter;
+    private GridContentAdapter mContentAdapter;
+    private ArrayList<DataYMDWVo> mTimeListDates;
+    private ArrayList<SelectVo> mSelectLists;
+    private DataManageVo mManageVo;
     /*
 
     @Override
@@ -64,44 +70,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         initData();
     }
 
-    private ArrayList<SelectVo> getSelectDatas(ArrayList<DataYMDWVo> mDates) {
-        ArrayList<SelectVo> mLists = new ArrayList<>();
-        Calendar c = Calendar.getInstance();
-        int d = c.get(Calendar.DATE);
-        for (int i = 0; i < mDates.size(); i++) {
-            DataYMDWVo vo = mDates.get(i);
-            SelectVo selectVo = new SelectVo();
-            if (vo.getDay().equals(String.valueOf(d))) {
-                selectVo.setSelect(true);
-            } else {
-                selectVo.setSelect(false);
-            }
-            setDataType(selectVo, d);
-            selectVo.setD(i);
-            mLists.add(selectVo);
-        }
-        return mLists;
-    }
-
-    private void setDataType(SelectVo vo, int d) {
-
-    }
-
     private void initData() {
         mPresenter = new MainPresenter();
         mPresenter.initModelView(new MainModel(), this);
         mUtil = Util.get_Instance(mContext);
         String time = mUtil.getDataTime(Calendar.getInstance());
+        mManageVo = DataManageVo.get_Instance();
         mTvTitleTime.setText(time);
         ArrayList<String> mTitles = mUtil.getArralistWithArray(R.array.girl_title);
         GridTitleAdapter mTitleAdapter = new GridTitleAdapter(mContext, mTitles);
         mGridTitle.setAdapter(mTitleAdapter);
         String firstData = mUtil.getFirstOrLastDate(0);
         String lastDate = mUtil.getFirstOrLastDate(1);
-        ArrayList<DataYMDWVo> mDates = mUtil.getDatas(firstData, lastDate);
-        ArrayList<SelectVo> selectList = mPresenter.getInitSelectList(mDates);
-        GridContentAdapter contentAdapter = new GridContentAdapter(mContext, mDates, selectList);
-        mGridContent.setAdapter(contentAdapter);
+        mTimeListDates = mUtil.getDatas(firstData, lastDate);
+        mSelectLists = mPresenter.getInitSelectList(mTimeListDates);
+        mContentAdapter = new GridContentAdapter(mContext, mTimeListDates, mSelectLists);
+        mGridContent.setAdapter(mContentAdapter);
 
     }
 
@@ -144,8 +128,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         switch (item.getItemId()) {
             case R.id.setting:
                 DialogUtil dialogUtil = DialogUtil.get_Instance(mContext);
-                dialogUtil.ShowSettingDialog(mPresenter,true);
-
+                dialogUtil.ShowSettingDialog(mPresenter, true);
+                dialogUtil.setOnItemButtonClickListener(new DialogUtil.OnItemButtonClickListener() {
+                    @Override
+                    public void onButtonClickItem() {
+                        refreshData();
+                    }
+                });
                 Toast.makeText(mContext, "点击设置", Toast.LENGTH_SHORT).show();
                 break;
             case 0:
@@ -154,5 +143,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
         }
         return false;
+    }
+
+    private void refreshData() {
+        DialogUtil dialogUtil = DialogUtil.get_Instance(mContext);
+        AlertDialog dialog = dialogUtil.showDialog("计算中", true);
+        mSelectLists = mPresenter.getSelectVoDatas(mTimeListDates, mManageVo.getTypeNumber(), mManageVo.getDaynubmer(), mManageVo.getTypeData());
+        mContentAdapter.setSelectDataVo(mSelectLists);
+        dialog.dismiss();
     }
 }

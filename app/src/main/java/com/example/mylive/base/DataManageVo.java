@@ -26,7 +26,6 @@ public class DataManageVo {
         }
         return _instance;
     }
-
     /**
      * 休息
      */
@@ -39,6 +38,59 @@ public class DataManageVo {
      * 白班
      */
     public static final int SUNNYTYPE = 2;
+//，0 为第一天夜班，1第二天夜班；
+//    type 1 为白天时，2 为第一天白班，3为第二天白班，4为第三天白班，5为第四天白班， ；
+    /**
+     * 一
+     */
+    public static final int ONE_DAY = 0;
+    /**
+     * 二
+     */
+    public static final int TWO_DAY = 1;
+    /**
+     * 三
+     */
+    public static final int THREE_DAY =2;
+    /**
+     * 四
+     */
+    public static final int FOUR_DAY = 3;
 
+    /**
+     * 0 为夜间，1为白天
+     */
+    private int typeData;
+    /**
+     * 第几天
+     */
+    private int typeNumber;
+    /**
+     * 当月天数
+     */
+    private int daynubmer=1;
 
+    public int getDaynubmer() {
+        return daynubmer;
+    }
+
+    public void setDaynubmer(int daynubmer) {
+        this.daynubmer = daynubmer;
+    }
+
+    public int getTypeData() {
+        return typeData;
+    }
+
+    public void setTypeData(int typeData) {
+        this.typeData = typeData;
+    }
+
+    public int getTypeNumber() {
+        return typeNumber;
+    }
+
+    public void setTypeNumber(int typeNumber) {
+        this.typeNumber = typeNumber;
+    }
 }

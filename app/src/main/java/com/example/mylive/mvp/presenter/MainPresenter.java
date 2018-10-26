@@ -30,7 +30,38 @@ public class MainPresenter implements MainContract.Presenter {
     public ArrayList<SelectVo> getInitSelectList(ArrayList<DataYMDWVo> mTimteDatas) {
         return model.getIniTSelectLists(mTimteDatas, mTimteDatas.size());
     }
-    public ArrayList<String> getTypeNightOrSun(int type){
-        return model.getTypeNightOrSun(type);
+
+    /**
+     * 获取数据
+     * @param datas 当月集合数据
+     * @param selectDay 选中得第几天
+     * @param daynum 当月得天数
+     * @param type 0为夜间，1为白班
+     * @return
+     */
+    @Override
+    public ArrayList<SelectVo> getSelectVoDatas(ArrayList<DataYMDWVo> datas, int selectDay, int daynum, int type) {
+        return model.getSaveTimeDatas(datas,selectDay,daynum,type);
+    }
+
+    /**
+     * 获取白天夜间
+     *
+     * @return
+     */
+    @Override
+    public ArrayList<String> getTypeNightAndSun() {
+        return model.getTypeNightAndSun();
+    }
+
+    /**
+     * 获取对应得数据集合
+     *
+     * @param type
+     * @return
+     */
+    @Override
+    public ArrayList<String> getTypeLists(int type) {
+        return model.getTypeDayList(type);
     }
 }

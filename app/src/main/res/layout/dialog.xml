@@ -8,10 +8,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="班型"
-        android:textSize="15dp"
         android:padding="4dp"
+        android:text="班型"
         android:textColor="@color/black"
+        android:textSize="15dp"
         android:textStyle="bold" />
 
     <View
@@ -31,8 +31,8 @@
             android:background="@drawable/select_s"
             android:gravity="center_vertical"
             android:padding="2dp"
-            android:textColor="@color/red"
-            android:text="上班顺序" />
+            android:text="上班顺序"
+            android:textColor="@color/red" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -86,8 +86,8 @@
             android:background="@drawable/select_s"
             android:gravity="center_vertical"
             android:padding="2dp"
-            android:textColor="@color/red"
-            android:text="对应顺序" />
+            android:text="对应顺序"
+            android:textColor="@color/red" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -140,10 +140,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:padding="4dp"
-        android:textSize="15dp"
         android:text="设置上班时间"
         android:textColor="@color/black"
+        android:textSize="15dp"
         android:textStyle="bold" />
+
 
     <View
         android:layout_width="match_parent"
@@ -151,32 +152,21 @@
         android:background="@color/gray_8f" />
 
     <LinearLayout
-        android:padding="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="4dp">
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textSize="14sp"
-            android:textColor="@color/steelblue"
+            style="@style/setting_tv_name"
             android:text="上班类型(白/夜)" />
-
-        <TextView
-            android:id="@+id/tv_dilaog_type"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:textColor="@color/steelblue"
-            android:layout_height="wrap_content"
-            android:text="白" />
 
         <Spinner
             android:id="@+id/spinner_type"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:entries="@array/type_night_sunny" />
     </LinearLayout>
 
     <View
@@ -185,32 +175,99 @@
         android:background="@color/gray_8f" />
 
     <LinearLayout
-        android:padding="4dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="4dp">
 
         <TextView
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="@color/steelblue"
+            style="@style/setting_tv_name"
             android:text="第几天上班" />
-
-        <TextView
-            android:id="@+id/tv_dialog_number"
-            android:textSize="14sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/steelblue"
-            android:text="一" />
 
         <Spinner
             android:id="@+id/spinner_number"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:entries="@array/type_sunny_list" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_8f" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="4dp">
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="日期"
+            android:textColor="@color/steelblue"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/red"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="允许输入范围("
+            android:textColor="@color/lightslategray"
+            android:textSize="11sp" />
+
+        <TextView
+            android:id="@+id/tv_setting_range"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:gravity="center_vertical"
+            android:text="1-30"
+            android:textColor="@color/red"
+            android:textSize="11sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text=")"
+            android:textColor="@color/lightslategray"
+            android:textSize="11sp" />
+
+        <EditText
+            android:id="@+id/et_setting_day"
+            android:layout_width="38dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:inputType="number"
+            android:maxLength="2" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_sure"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_submit"
+        android:shadowColor="#A8A8A8"
+        android:text="确认"
+        android:textColor="@color/white" />
+
 </LinearLayout>

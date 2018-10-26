@@ -38,6 +38,11 @@ public class GridContentAdapter extends BaseAdapter {
         this.mSelectDatas = mSelectDatas;
     }
 
+    public void setSelectDataVo(ArrayList<SelectVo> mSelectDatas) {
+        this.mSelectDatas = mSelectDatas;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return mListDatas.size();
@@ -72,9 +77,9 @@ public class GridContentAdapter extends BaseAdapter {
             holder.mTvContent.setBackgroundResource(R.drawable.select_n);
         }
         boolean night = true;
-        if (night){
+        if (night) {
             holder.mIvNightSunny.setImageResource(R.mipmap.nightday);
-        }else {
+        } else {
             holder.mIvNightSunny.setImageResource(R.mipmap.sunnyday_one);
         }
 
