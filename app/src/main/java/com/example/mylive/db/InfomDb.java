@@ -16,4 +16,5 @@ import java.io.Serializable;
  * @Copyright: 2018
  */
 public class InfomDb implements Serializable {
+
 }

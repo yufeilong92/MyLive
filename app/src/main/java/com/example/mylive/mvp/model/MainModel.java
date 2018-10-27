@@ -2,6 +2,7 @@ package com.example.mylive.mvp.model;
 
 import com.example.mylive.base.DataManageVo;
 import com.example.mylive.mvp.contract.MainContract;
+import com.example.mylive.utils.StringUtls;
 import com.example.mylive.vo.DataYMDWVo;
 import com.example.mylive.vo.SelectVo;
 
@@ -243,7 +244,7 @@ public class MainModel implements MainContract.Model {
             /**
              * 往后算
              */
-            int q=0;
+            int q = 0;
             if (mistake != 0) {
                 q = mistake / 8;
             }
@@ -291,7 +292,7 @@ public class MainModel implements MainContract.Model {
     private void listForEach(int num, int oneDay, ArrayList<SelectVo> dates, int length, int i) {
         for (int k = 0; k < num; k++) {
             int y = i + 8 * k >= length ? length - 1 : i + 8 * k;
-            selectViewData(oneDay, dates, length,y , y+ 1);
+            selectViewData(oneDay, dates, length, y, y + 1);
 
         }
     }
@@ -331,76 +332,93 @@ public class MainModel implements MainContract.Model {
         if (j - 8 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 8);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j - 7 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 7);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j - 6 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 6);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j - 5 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 5);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j - 4 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 4);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j - 3 > 0 && j <= length) {
             SelectVo selectVo = dates.get(i - 3);
             selectVo.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo.setSelectNumber(DataManageVo.TWO_DAY);
         }
         //前一天
         if (j - 2 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 2);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.THREE_DAY);
         }
         //下一天
         if (j - 1 > 0 && j <= length) {
             SelectVo selectVo2 = dates.get(i - 1);
             selectVo2.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo2.setSelectNumber(DataManageVo.FOUR_DAY);
         }
 
         //夜间
         SelectVo vo = dates.get(i);
         vo.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+        vo.setSelectNumber(DataManageVo.ONE_DAY);
 
 
         if (j + 1 <= length) {
             SelectVo selectVo5 = dates.get(i + 1);
             selectVo5.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo5.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j + 2 <= length) {
             SelectVo selectVo6 = dates.get(i + 2);
             selectVo6.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo6.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j + 3 <= length) {
             SelectVo selectVo7 = dates.get(i + 3);
             selectVo7.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo7.setSelectNumber(DataManageVo.TWO_DAY);
         }
         // 白天
         if (j + 4 <= length) {
             SelectVo selectVo = dates.get(i + 4);
             selectVo.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j + 5 <= length) {
 
             SelectVo selectVo1 = dates.get(i + 5);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j + 6 <= length) {
             SelectVo selectVo2 = dates.get(i + 6);
             selectVo2.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo2.setSelectNumber(DataManageVo.THREE_DAY);
         }
         if (j + 7 <= length) {
             SelectVo selectVo3 = dates.get(i + 7);
             selectVo3.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo3.setSelectNumber(DataManageVo.FOUR_DAY);
         }
         if (j + 8 <= length) {
             SelectVo selectVo3 = dates.get(i + 8);
             selectVo3.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo3.setSelectNumber(DataManageVo.ONE_DAY);
         }
     }
 
@@ -415,76 +433,93 @@ public class MainModel implements MainContract.Model {
         if (j - 8 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 8);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j - 7 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 7);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j - 6 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 6);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j - 5 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 5);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j - 4 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 4);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j - 3 > 0 && j <= length) {
             SelectVo selectVo = dates.get(i - 3);
             selectVo.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo.setSelectNumber(DataManageVo.TWO_DAY);
         }
         //前一天
         if (j - 2 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 2);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.THREE_DAY);
         }
         //下一天
         if (j - 1 > 0 && j <= length) {
             SelectVo selectVo2 = dates.get(i - 1);
             selectVo2.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo2.setSelectNumber(DataManageVo.FOUR_DAY);
         }
 
         //夜间
         SelectVo vo = dates.get(i);
         vo.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+        vo.setSelectNumber(DataManageVo.ONE_DAY);
 
 
         if (j + 1 <= length) {
             SelectVo selectVo5 = dates.get(i + 1);
             selectVo5.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo5.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j + 2 <= length) {
             SelectVo selectVo6 = dates.get(i + 2);
             selectVo6.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo6.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j + 3 <= length) {
             SelectVo selectVo7 = dates.get(i + 3);
             selectVo7.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo7.setSelectNumber(DataManageVo.TWO_DAY);
         }
         // 白天
         if (j + 4 <= length) {
             SelectVo selectVo = dates.get(i + 4);
             selectVo.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j + 5 <= length) {
 
             SelectVo selectVo1 = dates.get(i + 5);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j + 6 <= length) {
             SelectVo selectVo2 = dates.get(i + 6);
             selectVo2.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo2.setSelectNumber(DataManageVo.THREE_DAY);
         }
         if (j + 7 <= length) {
             SelectVo selectVo3 = dates.get(i + 7);
             selectVo3.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo3.setSelectNumber(DataManageVo.FOUR_DAY);
         }
         if (j + 8 <= length) {
             SelectVo selectVo3 = dates.get(i + 8);
             selectVo3.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo3.setSelectNumber(DataManageVo.ONE_DAY);
         }
     }
 
@@ -499,76 +534,93 @@ public class MainModel implements MainContract.Model {
         if (j - 8 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 8);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j - 7 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 7);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j - 6 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 6);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.THREE_DAY);
         }
         if (j - 5 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 5);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.FOUR_DAY);
         }
         if (j - 4 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 4);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j - 3 > 0 && j <= length) {
             SelectVo selectVo = dates.get(i - 3);
             selectVo.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo.setSelectNumber(DataManageVo.ONE_DAY);
         }
         //前一天
         if (j - 2 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 2);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         //下一天
         if (j - 1 > 0 && j <= length) {
             SelectVo selectVo2 = dates.get(i - 1);
             selectVo2.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo2.setSelectNumber(DataManageVo.TWO_DAY);
         }
 
         //夜间
         SelectVo vo = dates.get(i);
         vo.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+        vo.setSelectNumber(DataManageVo.ONE_DAY);
 
 
         if (j + 1 <= length) {
             SelectVo selectVo5 = dates.get(i + 1);
             selectVo5.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo5.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j + 2 <= length) {
             SelectVo selectVo6 = dates.get(i + 2);
             selectVo6.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo6.setSelectNumber(DataManageVo.THREE_DAY);
         }
         if (j + 3 <= length) {
             SelectVo selectVo7 = dates.get(i + 3);
             selectVo7.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo7.setSelectNumber(DataManageVo.FOUR_DAY);
         }
         // 白天
         if (j + 4 <= length) {
             SelectVo selectVo = dates.get(i + 4);
             selectVo.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j + 5 <= length) {
 
             SelectVo selectVo1 = dates.get(i + 5);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j + 6 <= length) {
             SelectVo selectVo2 = dates.get(i + 6);
             selectVo2.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo2.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j + 7 <= length) {
             SelectVo selectVo3 = dates.get(i + 7);
             selectVo3.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo3.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j + 8 <= length) {
             SelectVo selectVo3 = dates.get(i + 8);
             selectVo3.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo3.setSelectNumber(DataManageVo.ONE_DAY);
         }
     }
 
@@ -583,76 +635,93 @@ public class MainModel implements MainContract.Model {
         if (j - 8 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 8);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j - 7 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 7);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.THREE_DAY);
         }
         if (j - 6 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 6);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.FOUR_DAY);
         }
         if (j - 5 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 5);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j - 4 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 4);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j - 3 > 0 && j <= length) {
             SelectVo selectVo = dates.get(i - 3);
             selectVo.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo.setSelectNumber(DataManageVo.TWO_DAY);
         }
         //前一天
         if (j - 2 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 2);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         //下一天
         if (j - 1 > 0 && j <= length) {
             SelectVo selectVo2 = dates.get(i - 1);
             selectVo2.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo2.setSelectNumber(DataManageVo.ONE_DAY);
         }
 
         //夜间
         SelectVo vo = dates.get(i);
         vo.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+        vo.setSelectNumber(DataManageVo.TWO_DAY);
 
 
         if (j + 1 <= length) {
             SelectVo selectVo5 = dates.get(i + 1);
             selectVo5.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo5.setSelectNumber(DataManageVo.THREE_DAY);
         }
         if (j + 2 <= length) {
             SelectVo selectVo6 = dates.get(i + 2);
             selectVo6.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo6.setSelectNumber(DataManageVo.FOUR_DAY);
         }
         if (j + 3 <= length) {
             SelectVo selectVo7 = dates.get(i + 3);
             selectVo7.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo7.setSelectNumber(DataManageVo.ONE_DAY);
         }
         // 白天
         if (j + 4 <= length) {
             SelectVo selectVo = dates.get(i + 4);
             selectVo.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j + 5 <= length) {
 
             SelectVo selectVo1 = dates.get(i + 5);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j + 6 <= length) {
             SelectVo selectVo2 = dates.get(i + 6);
             selectVo2.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo2.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j + 7 <= length) {
             SelectVo selectVo3 = dates.get(i + 7);
             selectVo3.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo3.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j + 8 <= length) {
             SelectVo selectVo3 = dates.get(i + 8);
             selectVo3.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo3.setSelectNumber(DataManageVo.TWO_DAY);
         }
     }
 
@@ -667,76 +736,93 @@ public class MainModel implements MainContract.Model {
         if (j - 8 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 8);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.THREE_DAY);
         }
         if (j - 7 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 7);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.FOUR_DAY);
         }
         if (j - 6 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 6);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j - 5 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 5);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j - 4 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 4);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j - 3 > 0 && j <= length) {
             SelectVo selectVo = dates.get(i - 3);
             selectVo.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo.setSelectNumber(DataManageVo.TWO_DAY);
         }
         //前一天
         if (j - 2 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 2);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         //下一天
         if (j - 1 > 0 && j <= length) {
             SelectVo selectVo2 = dates.get(i - 1);
             selectVo2.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo2.setSelectNumber(DataManageVo.TWO_DAY);
         }
 
         //夜间
         SelectVo vo = dates.get(i);
         vo.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+        vo.setSelectNumber(DataManageVo.THREE_DAY);
 
 
         if (j + 1 <= length) {
             SelectVo selectVo5 = dates.get(i + 1);
             selectVo5.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo5.setSelectNumber(DataManageVo.FOUR_DAY);
         }
         if (j + 2 <= length) {
             SelectVo selectVo6 = dates.get(i + 2);
             selectVo6.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo6.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j + 3 <= length) {
             SelectVo selectVo7 = dates.get(i + 3);
             selectVo7.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo7.setSelectNumber(DataManageVo.ONE_DAY);
         }
         // 白天
         if (j + 4 <= length) {
             SelectVo selectVo = dates.get(i + 4);
             selectVo.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j + 5 <= length) {
 
             SelectVo selectVo1 = dates.get(i + 5);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j + 6 <= length) {
             SelectVo selectVo2 = dates.get(i + 6);
             selectVo2.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo2.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j + 7 <= length) {
             SelectVo selectVo3 = dates.get(i + 7);
             selectVo3.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo3.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j + 8 <= length) {
             SelectVo selectVo3 = dates.get(i + 8);
             selectVo3.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo3.setSelectNumber(DataManageVo.THREE_DAY);
         }
     }
 
@@ -751,76 +837,93 @@ public class MainModel implements MainContract.Model {
         if (j - 8 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 8);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.FOUR_DAY);
         }
         if (j - 7 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 7);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j - 6 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 6);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j - 5 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 5);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j - 4 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 4);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j - 3 > 0 && j <= length) {
             SelectVo selectVo = dates.get(i - 3);
             selectVo.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo.setSelectNumber(DataManageVo.ONE_DAY);
         }
         //前一天
         if (j - 2 > 0 && j <= length) {
             SelectVo selectVo1 = dates.get(i - 2);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.TWO_DAY);
         }
         //下一天
         if (j - 1 > 0 && j <= length) {
             SelectVo selectVo2 = dates.get(i - 1);
             selectVo2.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo2.setSelectNumber(DataManageVo.THREE_DAY);
         }
 
         //夜间
         SelectVo vo = dates.get(i);
         vo.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+        vo.setSelectNumber(DataManageVo.FOUR_DAY);
 
 
         if (j + 1 <= length) {
             SelectVo selectVo5 = dates.get(i + 1);
             selectVo5.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo5.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j + 2 <= length) {
             SelectVo selectVo6 = dates.get(i + 2);
             selectVo6.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo6.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j + 3 <= length) {
             SelectVo selectVo7 = dates.get(i + 3);
             selectVo7.setSunnyOrDayOrNight(DataManageVo.NIGHTTYPE);
+            selectVo7.setSelectNumber(DataManageVo.TWO_DAY);
         }
         // 白天
         if (j + 4 <= length) {
             SelectVo selectVo = dates.get(i + 4);
             selectVo.setSunnyOrDayOrNight(DataManageVo.RESTTYPE);
+            selectVo.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j + 5 <= length) {
 
             SelectVo selectVo1 = dates.get(i + 5);
             selectVo1.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo1.setSelectNumber(DataManageVo.ONE_DAY);
         }
         if (j + 6 <= length) {
             SelectVo selectVo2 = dates.get(i + 6);
             selectVo2.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo2.setSelectNumber(DataManageVo.TWO_DAY);
         }
         if (j + 7 <= length) {
             SelectVo selectVo3 = dates.get(i + 7);
             selectVo3.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo3.setSelectNumber(DataManageVo.THREE_DAY);
         }
         if (j + 8 <= length) {
             SelectVo selectVo3 = dates.get(i + 8);
             selectVo3.setSunnyOrDayOrNight(DataManageVo.SUNNYTYPE);
+            selectVo3.setSelectNumber(DataManageVo.FOUR_DAY);
         }
     }
 

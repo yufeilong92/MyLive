@@ -23,6 +23,18 @@ public class SelectVo {
      * 0 为休息 1为夜班 2 白班
      */
     private int SunnyOrDayOrNight;
+    /**
+     * 选择的天数
+     */
+    private int selectNumber;
+
+    public int getSelectNumber() {
+        return selectNumber;
+    }
+
+    public void setSelectNumber(int selectNumber) {
+        this.selectNumber = selectNumber;
+    }
 
     public int getSunnyOrDayOrNight() {
         return SunnyOrDayOrNight;
