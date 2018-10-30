@@ -19,29 +19,34 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
-     <TextView
-         android:id="@+id/tv_title_time"
-         android:gravity="center"
-         android:textColor="@color/blue"
-         android:layout_width="match_parent"
-         android:layout_height="48dp" />
+
+        <TextView
+            android:id="@+id/tv_title_time"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center"
+            android:textColor="@color/blue" />
 
         <GridView
-            android:scrollbars="none"
             android:id="@+id/grid_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:numColumns="7" />
+            android:numColumns="7"
+            android:scrollbars="none" />
 
         <GridView
-            android:scrollbars="none"
-            android:verticalSpacing="4dp"
-            android:horizontalSpacing="4dp"
             android:id="@+id/grid_content"
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginTop="10dp"
-            android:numColumns="7" />
+            android:horizontalSpacing="4dp"
+            android:numColumns="7"
+            android:scrollbars="none"
+            android:verticalSpacing="4dp" />
+
+        <cn.lemon.view.RefreshRecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <ImageView
