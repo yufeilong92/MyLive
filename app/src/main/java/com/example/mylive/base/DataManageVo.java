@@ -1,5 +1,7 @@
 package com.example.mylive.base;
 
+import android.os.Build;
+
 /**
  * @version V 1.0 xxxxxxxx
  * @Title: MyLive
@@ -26,6 +28,7 @@ public class DataManageVo {
         }
         return _instance;
     }
+
     /**
      * 休息
      */
@@ -51,7 +54,7 @@ public class DataManageVo {
     /**
      * 三
      */
-    public static final int THREE_DAY =3;
+    public static final int THREE_DAY = 3;
     /**
      * 四
      */
@@ -60,37 +63,41 @@ public class DataManageVo {
     /**
      * 0 为夜间，1为白天
      */
-    private int typeData=DataManageVo.SUNNYTYPE;
+    private int NightOrSunnytype = DataManageVo.SUNNYTYPE;
     /**
-     * 第几天
+     * 第几天（设置选择）
      */
-    private int typeNumber=DataManageVo.ONE_DAY;
+    private int selectDay = DataManageVo.ONE_DAY;
     /**
-     * 当月天数
+     * 手机型号
      */
-    private int daynubmer=1;
+    public static final String db_name = Build.BRAND;
+    /**
+     * 当月天数 (用户填写)
+     */
+    private int writeDay = 1;
 
-    public int getDaynubmer() {
-        return daynubmer;
+    public int getWriteDay() {
+        return writeDay;
     }
 
-    public void setDaynubmer(int daynubmer) {
-        this.daynubmer = daynubmer;
+    public void setWriteDay(int writeDay) {
+        this.writeDay = writeDay;
     }
 
-    public int getTypeData() {
-        return typeData;
+    public int getNightOrSunnytype() {
+        return NightOrSunnytype;
     }
 
-    public void setTypeData(int typeData) {
-        this.typeData = typeData;
+    public void setNightOrSunnytype(int nightOrSunnytype) {
+        this.NightOrSunnytype = nightOrSunnytype;
     }
 
-    public int getTypeNumber() {
-        return typeNumber;
+    public int getSelectDay() {
+        return selectDay;
     }
 
-    public void setTypeNumber(int typeNumber) {
-        this.typeNumber = typeNumber;
+    public void setSelectDay(int selectDay) {
+        this.selectDay = selectDay;
     }
 }

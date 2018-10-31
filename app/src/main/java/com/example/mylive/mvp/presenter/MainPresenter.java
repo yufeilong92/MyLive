@@ -1,5 +1,8 @@
 package com.example.mylive.mvp.presenter;
 
+import android.content.Context;
+
+import com.example.mylive.db.UserSetting;
 import com.example.mylive.mvp.contract.MainContract;
 import com.example.mylive.vo.DataYMDWVo;
 import com.example.mylive.vo.SelectVo;
@@ -63,5 +66,19 @@ public class MainPresenter implements MainContract.Presenter {
     @Override
     public ArrayList<String> getTypeLists(int type) {
         return model.getTypeDayList(type);
+    }
+    /**
+     * @param selectDay 用户选择天数
+     * @param writeDay 当月天数
+     * @param type      类型 0 为白天，1为夜间
+     */
+    @Override
+    public void putUserSetting(Context context, int selectDay, int writeDay, int type) {
+         model.putUserSetting( context,selectDay,writeDay,type);
+    }
+
+    @Override
+    public UserSetting getUserSetting(Context context) {
+        return model.getUserSetting(context);
     }
 }

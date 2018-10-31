@@ -7,6 +7,23 @@
     android:orientation="vertical"
     tools:context=".ui.Main2Activity">
 
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="add"
+        android:textAllCaps="false" />
+    <Button
+        android:id="@+id/btn_find"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="find"
+        android:textAllCaps="false" />
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <cn.lemon.view.RefreshRecyclerView
         android:id="@+id/rrclv_content"
         android:layout_width="match_parent"

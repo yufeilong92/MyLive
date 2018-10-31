@@ -1,5 +1,8 @@
 package com.example.mylive.mvp.contract;
 
+import android.content.Context;
+
+import com.example.mylive.db.UserSetting;
 import com.example.mylive.vo.DataYMDWVo;
 import com.example.mylive.vo.SelectVo;
 
@@ -24,7 +27,8 @@ public interface MainContract {
         public ArrayList<String> getTypeNightAndSun();
 
         public ArrayList<String> getTypeDayList(int type);
-
+        public void putUserSetting(Context context, int selectDay, int numberDay, int type);
+        public UserSetting getUserSetting(Context context);
     }
 
     interface View {
@@ -40,5 +44,7 @@ public interface MainContract {
         public ArrayList<String> getTypeNightAndSun();
 
         public ArrayList<String> getTypeLists(int type);
+        public void putUserSetting(Context context, int selectDay, int numberDay, int type);
+        public UserSetting getUserSetting(Context context);
     }
 }

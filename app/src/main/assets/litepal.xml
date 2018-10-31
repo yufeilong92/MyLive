@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <!--表名-->
-    <dbname vlaue="infom" />
+    <dbname  value="myuserinfom" ></dbname>
     <!--版本号-->
-    <version value="1" />
+    <version value="1" ></version>
     <!--说据库类名-->
     <list>
         <!--包名+类名-->
-        <mapping class="com.example.mylive.db.InfomDb"></mapping>
+        <mapping class="com.example.mylive.db.UserSetting"></mapping>
+        <mapping class="com.example.mylive.db.UserInfom"></mapping>
 
     </list>
     <!--数剧库位置-->

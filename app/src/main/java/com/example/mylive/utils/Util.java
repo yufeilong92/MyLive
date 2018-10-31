@@ -1,6 +1,8 @@
 package com.example.mylive.utils;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 
 import com.example.mylive.R;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.IllegalFormatCodePointException;
 
 /**
  * @version V 1.0 xxxxxxxx
@@ -276,5 +279,48 @@ public class Util {
     public int getDayOrNightOrRest(int selectNight, boolean select, int type) {
 
         return 0;
+    }
+
+    public String[] getDataArray(String data) {
+        String[] split = data.split("-");
+        return split;
+    }
+
+    /**
+     * 设置监听
+     */
+    private OnHandleClickListener onHandleClickListener;
+
+    public interface OnHandleClickListener {
+        public void onClickItem();
+    }
+
+    public void setOnHandleClickListener(OnHandleClickListener onHandleClickListener) {
+        this.onHandleClickListener = onHandleClickListener;
+    }
+
+    private static final int HANDLERTAG = 12;
+    public void HandlepostDelayed(long m ,OnHandleClickListener onHandleClickListener) {
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                switch (msg.what) {
+                    case HANDLERTAG:
+                        if (onHandleClickListener != null) {
+                            onHandleClickListener.onClickItem();
+                        }
+                        break;
+                }
+            }
+        };
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Message message = handler.obtainMessage();
+                message.what = HANDLERTAG;
+                message.sendToTarget();
+            }
+        }, m);
     }
 }

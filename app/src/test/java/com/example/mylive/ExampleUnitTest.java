@@ -2,6 +2,8 @@ package com.example.mylive;
 
 import org.junit.Test;
 
+import java.util.function.DoubleSupplier;
+
 import static org.junit.Assert.*;
 
 /**
@@ -16,9 +18,8 @@ public class ExampleUnitTest {
     }
 
     @Test
-    public void text(){
-        int a=5;
-        int i = a /8;
-        System.out.println(""+i);
+    public void text() {
+
     }
+
 }

@@ -96,8 +96,8 @@ public class DialogUtil {
 
     public void ShowSettingDialog(final MainPresenter mPresenter, boolean mCancelable) {
         final DataManageVo vo = DataManageVo.get_Instance();
-        vo.setTypeData(DataManageVo.SUNNYTYPE);
-        vo.setTypeNumber(DataManageVo.ONE_DAY);
+        vo.setNightOrSunnytype(DataManageVo.SUNNYTYPE);
+        vo.setSelectDay(DataManageVo.ONE_DAY);
         final ArrayList<String> nightAndSun = mPresenter.getTypeNightAndSun();
         final ArrayList<String> typeLists = mPresenter.getTypeLists(DataManageVo.SUNNYTYPE);
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
@@ -144,14 +144,14 @@ public class DialogUtil {
                 String s = nightAndSun.get(position);
                 switch (s) {
                     case "白班":
-                        vo.setTypeData(DataManageVo.SUNNYTYPE);
+                        vo.setNightOrSunnytype(DataManageVo.SUNNYTYPE);
                         ArrayList<String> lists = mPresenter.getTypeLists(DataManageVo.SUNNYTYPE);
                         typeLists.clear();
                         typeLists.addAll(lists);
                         typeAdapter.notifyDataSetChanged();
                         break;
                     case "夜班":
-                        vo.setTypeData(DataManageVo.NIGHTTYPE);
+                        vo.setNightOrSunnytype(DataManageVo.NIGHTTYPE);
                         ArrayList<String> nightList = mPresenter.getTypeLists(DataManageVo.NIGHTTYPE);
                         typeLists.clear();
                         typeLists.addAll(nightList);
@@ -173,16 +173,16 @@ public class DialogUtil {
                 String s = typeLists.get(position);
                 switch (s) {
                     case "一":
-                        vo.setTypeNumber(DataManageVo.ONE_DAY);
+                        vo.setSelectDay(DataManageVo.ONE_DAY);
                         break;
                     case "二":
-                        vo.setTypeNumber(DataManageVo.TWO_DAY);
+                        vo.setSelectDay(DataManageVo.TWO_DAY);
                         break;
                     case "三":
-                        vo.setTypeNumber(DataManageVo.THREE_DAY);
+                        vo.setSelectDay(DataManageVo.THREE_DAY);
                         break;
                     case "四":
-                        vo.setTypeNumber(DataManageVo.FOUR_DAY);
+                        vo.setSelectDay(DataManageVo.FOUR_DAY);
                         break;
 
                     default:
@@ -231,7 +231,7 @@ public class DialogUtil {
             Toast.makeText(mContext, "输入超出计算范围", Toast.LENGTH_SHORT).show();
         } else {
             isSubmti = true;
-            vo.setDaynubmer(Integer.parseInt(s1));
+            vo.setWriteDay(Integer.parseInt(s1));
         }
     }
 
@@ -255,8 +255,8 @@ public class DialogUtil {
         return stringBuffer.toString().trim();
     }
 
-    public AlertDialog showDialog(String content, boolean isCancel) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext, R.style.dialog);
+    public AlertDialog showDialog(Context context,String content, boolean isCancel) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
         View view = LayoutInflater.from(mContext).inflate(R.layout.show_dialog, null);
         TextView tv_dialgo = (TextView) view.findViewById(R.id.tv_dialog_content);
         tv_dialgo.setText(content);

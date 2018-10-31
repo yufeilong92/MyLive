@@ -1,8 +1,13 @@
 package com.example.mylive.mvp.model;
 
+import android.content.Context;
+
 import com.example.mylive.base.DataManageVo;
+import com.example.mylive.db.MangeDb;
+import com.example.mylive.db.UserSetting;
 import com.example.mylive.mvp.contract.MainContract;
 import com.example.mylive.utils.StringUtls;
+import com.example.mylive.utils.Util;
 import com.example.mylive.vo.DataYMDWVo;
 import com.example.mylive.vo.SelectVo;
 
@@ -102,6 +107,30 @@ public class MainModel implements MainContract.Model {
         }
 
         return list;
+    }
+
+    @Override
+    public void putUserSetting(Context context, int selectDay, int writeDay, int type) {
+        MangeDb db = MangeDb.get_Instance(context);
+
+        UserSetting userSeting = db.findUserSeting();
+        userSeting.setWriterSelectDay(writeDay);
+        userSeting.setUserSelectDay(selectDay);
+        Util util = Util.get_Instance(context);
+        String lastDate = util.getFirstOrLastDate(0);
+        String[] dataArray = util.getDataArray(lastDate);
+        userSeting.setYear(dataArray[0]);
+        userSeting.setMonth(dataArray[1]);
+        userSeting.setDay(String.valueOf(writeDay));
+        userSeting.setTime(dataArray[0] + "-" + dataArray[1] + "-" + writeDay);
+        userSeting.setType(type);
+        db.addUserSetting(userSeting);
+    }
+
+    @Override
+    public UserSetting getUserSetting(Context context) {
+        MangeDb db = MangeDb.get_Instance(context);
+        return db.findUserSeting();
     }
 
     /**

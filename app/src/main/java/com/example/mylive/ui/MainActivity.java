@@ -1,22 +1,25 @@
 package com.example.mylive.ui;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mylive.R;
 import com.example.mylive.adapter.GridContentAdapter;
 import com.example.mylive.adapter.GridTitleAdapter;
 import com.example.mylive.base.BaseActivity;
 import com.example.mylive.base.DataManageVo;
+import com.example.mylive.db.MangeDb;
+import com.example.mylive.db.UserSetting;
 import com.example.mylive.mvp.contract.MainContract;
 import com.example.mylive.mvp.model.MainModel;
 import com.example.mylive.mvp.presenter.MainPresenter;
@@ -27,7 +30,6 @@ import com.example.mylive.vo.SelectVo;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 
 /**
  * @version V 1.0 xxxxxxxx
@@ -53,6 +55,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private ArrayList<DataYMDWVo> mTimeListDates;
     private ArrayList<SelectVo> mSelectLists;
     private DataManageVo mManageVo;
+    private MangeDb mDb;
     /*
 
     @Override
@@ -68,9 +71,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         setContentView(R.layout.activity_main);
         initView();
         initData();
+        setAdapterListener();
+        initShowView();
+    }
+
+    private void initShowView() {
+        UserSetting userSeting = mDb.findUserSeting();
+        refreshData(userSeting.getUserSelectDay(), userSeting.getWriterSelectDay(), userSeting.getType());
+    }
+
+    private void setAdapterListener() {
+        mGridContent.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                startActivity(new Intent(MainActivity.this, Main2Activity.class));
+            }
+        });
     }
 
     private void initData() {
+        mDb = MangeDb.get_Instance(mContext);
         mPresenter = new MainPresenter();
         mPresenter.initModelView(new MainModel(), this);
         mUtil = Util.get_Instance(mContext);
@@ -132,10 +152,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 dialogUtil.setOnItemButtonClickListener(new DialogUtil.OnItemButtonClickListener() {
                     @Override
                     public void onButtonClickItem() {
-                        refreshData();
+                        refreshData(mManageVo.getSelectDay(),
+                                mManageVo.getWriteDay(), mManageVo.getNightOrSunnytype());
                     }
                 });
-                Toast.makeText(mContext, "点击设置", Toast.LENGTH_SHORT).show();
                 break;
             case 0:
                 break;
@@ -145,11 +165,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         return false;
     }
 
-    private void refreshData() {
+    /**
+     * @param selectDay 用户选择天数
+     * @param numberDay 用户填写天数
+     * @param type      类型
+     */
+    private void refreshData(int selectDay, int numberDay, int type) {
         DialogUtil dialogUtil = DialogUtil.get_Instance(mContext);
-        AlertDialog dialog = dialogUtil.showDialog("计算中", true);
-        mSelectLists = mPresenter.getSelectVoDatas(mTimeListDates, mManageVo.getTypeNumber(), mManageVo.getDaynubmer(), mManageVo.getTypeData());
+        AlertDialog mDialog = dialogUtil.showDialog(mContext, "计算中", true);
+        mSelectLists = mPresenter.getSelectVoDatas(mTimeListDates, selectDay,
+                numberDay, type);
         mContentAdapter.setSelectDataVo(mSelectLists);
-        dialog.dismiss();
+        mPresenter.putUserSetting(mContext, selectDay, numberDay, type);
+        Util util = Util.get_Instance(mContext);
+        util.HandlepostDelayed(1000, new Util.OnHandleClickListener() {
+            @Override
+            public void onClickItem() {
+                if (mDialog != null && mDialog.isShowing())
+                    mDialog.dismiss();
+            }
+        });
+
+
     }
+
 }
