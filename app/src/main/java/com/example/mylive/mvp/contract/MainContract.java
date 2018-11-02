@@ -22,7 +22,7 @@ public interface MainContract {
     interface Model {
         public ArrayList<SelectVo> getIniTSelectLists(ArrayList<DataYMDWVo> mTimteDatas, int dayNum);
 
-        public ArrayList<SelectVo> getSaveTimeDatas(ArrayList<DataYMDWVo> datas, int selectDay, int daynum, int type);
+        public ArrayList<SelectVo> getSaveTimeDatas(ArrayList<DataYMDWVo> datas, int selectDay, int daynum, int type,int out);
 
         public ArrayList<String> getTypeNightAndSun();
 
@@ -39,7 +39,7 @@ public interface MainContract {
 
         public ArrayList<SelectVo> getInitSelectList(ArrayList<DataYMDWVo> mTimteDatas);
 
-        public ArrayList<SelectVo> getSelectVoDatas(ArrayList<DataYMDWVo> datas, int selectDay, int daynum, int type);
+        public ArrayList<SelectVo> getSelectVoDatas(ArrayList<DataYMDWVo> datas, int selectDay, int daynum, int type,int out);
 
         public ArrayList<String> getTypeNightAndSun();
 

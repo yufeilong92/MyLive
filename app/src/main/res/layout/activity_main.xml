@@ -20,37 +20,66 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
+        <include layout="@layout/month_layout" />
+
         <TextView
-            android:id="@+id/tv_title_time"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical|center"
+            android:text="班别类型"
+            android:textColor="@color/rosybrown"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:gravity="center"
-            android:textColor="@color/blue" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <GridView
-            android:id="@+id/grid_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:numColumns="7"
-            android:scrollbars="none" />
+            <TextView
+                style="@style/tag_tv"
+                android:drawableTop="@mipmap/rest"
+                android:text="休息" />
 
-        <GridView
-            android:id="@+id/grid_content"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="10dp"
-            android:horizontalSpacing="4dp"
-            android:numColumns="7"
-            android:scrollbars="none"
-            android:verticalSpacing="4dp" />
+            <TextView
+                style="@style/tag_tv"
+                android:drawableTop="@mipmap/sunnyday_one"
+                android:text="白班" />
 
-        <cn.lemon.view.RefreshRecyclerView
+            <TextView
+                style="@style/tag_tv"
+                android:drawableTop="@mipmap/nightday"
+                android:text="夜班" />
+        </LinearLayout>
+
+        <View style="@style/view_onle_1dp" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent">
+            <cn.lemon.view.RefreshRecyclerView
+                android:id="@+id/rfrlcv_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="40dp"
+                app:refresh_enable="false" />
+
+                <TextView
+                    android:layout_alignParentBottom="true"
+                    android:id="@+id/tv_input_affair"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp"
+                    android:layout_weight="1"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_vertical|center"
+                    android:background="@drawable/tv_input_bg"
+                    android:text="请输入记录内容" />
+        </RelativeLayout>
     </LinearLayout>
 
     <ImageView
-
         android:id="@+id/iv_right"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

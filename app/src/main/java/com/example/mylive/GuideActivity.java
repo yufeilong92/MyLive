@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.example.mylive.base.BaseActivity;
 import com.example.mylive.ui.MainActivity;
+import com.example.mylive.utils.Util;
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.Permission;
 import com.hjq.permissions.XXPermissions;
@@ -58,7 +59,12 @@ public class GuideActivity extends BaseActivity {
                     @Override
                     public void hasPermission(List<String> granted, boolean isAll) {
                         if (isAll) {
-                            startActivity(new Intent(GuideActivity.this, MainActivity.class));
+                            Util.HandlepostDelayed(1000, new Util.OnHandleClickListener() {
+                                @Override
+                                public void onClickItem() {
+                                    startActivity(new Intent(GuideActivity.this, MainActivity.class));
+                                }
+                            });
                         } else {
                             initPermission();
                         }

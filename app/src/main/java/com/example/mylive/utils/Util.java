@@ -5,15 +5,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
 
-import com.example.mylive.R;
 import com.example.mylive.vo.DataYMDWVo;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.IllegalFormatCodePointException;
 
 /**
  * @version V 1.0 xxxxxxxx
@@ -27,17 +25,15 @@ import java.util.IllegalFormatCodePointException;
  */
 public class Util {
     private static volatile Util _singleton;
-    private Context mContext;
 
-    private Util(Context context) {
-        this.mContext = context;
+    private Util() {
     }
 
-    public static Util get_Instance(Context context) {
+    public static Util get_Instance() {
         if (_singleton == null) {
             synchronized (Util.class) {
                 if (_singleton == null) {
-                    _singleton = new Util(context);
+                    _singleton = new Util();
                 }
             }
         }
@@ -51,7 +47,7 @@ public class Util {
         return false;
     }
 
-    public ArrayList<String> getArralistWithArray(int id) {
+    public ArrayList<String> getArralistWithArray(Context mContext, int id) {
         ArrayList<String> mDataLists = new ArrayList<>();
         String[] stringArray = mContext.getResources().getStringArray(id);
         if (stringArray == null || stringArray.length == 0)
@@ -75,6 +71,7 @@ public class Util {
         String[] lastDatas = getDateStrings(lastDate);
         String fistData = fistDatas[fistDatas.length - 1];
         String lastData = lastDatas[lastDatas.length - 1];
+        //第一天
         int first = Integer.valueOf(fistData);
         int Y = Integer.parseInt(fistDatas[0]);
         int M = Integer.parseInt(fistDatas[1]);
@@ -85,12 +82,12 @@ public class Util {
             }
             DataYMDWVo vo = new DataYMDWVo();
             int wek = getWek(first, Y, M, vo);
-            first++;
-            if (first == 1) {
+
+            if (first == 1) {//判断当月1号时星期几往前推几天填充数据
                 switch (wek) {
-                    case 1://星期一
+                    case 2://星期一
                         break;
-                    case 2://星期二
+                    case 3://星期二
                         if (M == 1) {
                             int y_new = Y - 1;
                             int m_new = 12;
@@ -105,90 +102,91 @@ public class Util {
                             list.add(vo);
                         }
                         break;
-                    case 3://星期三
+                    case 4://星期三
                         if (M == 1) {
                             int y_new = Y - 1;
                             int m_new = 12;
                             String lastDate1 = getFirstOrLastDate(y_new, m_new, 1, true);
-                            addList(list, vo, y_new, m_new, lastDate1, 1);
+                            addList(list, y_new, m_new, lastDate1, 1);
                         } else {
                             int y_new = Y;
-                            int m_new = M;
+                            int m_new = M-1;
                             String lastDate1 = getFirstOrLastDate(y_new, m_new, 1, true);
-                            addList(list, vo, y_new, m_new, lastDate1, 1);
+                            addList(list,  y_new, m_new, lastDate1, 1);
                         }
                         break;
-                    case 4://星期四
+                    case 5://星期四
                         if (M == 1) {
                             int y_new = Y - 1;
                             int m_new = 12;
                             String lastDate1 = getFirstOrLastDate(y_new, m_new, 1, true);
-                            addList(list, vo, y_new, m_new, lastDate1, 2);
+                            addList(list, y_new, m_new, lastDate1, 2);
                         } else {
                             int y_new = Y;
-                            int m_new = M;
+                            int m_new = M-1;
                             String lastDate1 = getFirstOrLastDate(y_new, m_new, 1, true);
-                            addList(list, vo, y_new, m_new, lastDate1, 2);
+                            addList(list, y_new, m_new, lastDate1, 2);
                         }
                         break;
-                    case 5://星期五
+                    case 6://星期五
                         if (M == 1) {
                             int y_new = Y - 1;
                             int m_new = 12;
                             String lastDate1 = getFirstOrLastDate(y_new, m_new, 1, true);
-                            addList(list, vo, y_new, m_new, lastDate1, 3);
+                            addList(list, y_new, m_new, lastDate1, 3);
                         } else {
                             int y_new = Y;
-                            int m_new = M;
+                            int m_new = M-1;
                             String lastDate1 = getFirstOrLastDate(y_new, m_new, 1, true);
-                            addList(list, vo, y_new, m_new, lastDate1, 3);
+                            addList(list, y_new, m_new, lastDate1, 3);
                         }
                         break;
-                    case 6://星期六
+                    case 7://星期六
                         if (M == 1) {
                             int y_new = Y - 1;
                             int m_new = 12;
                             String lastDate1 = getFirstOrLastDate(y_new, m_new, 1, true);
-                            addList(list, vo, y_new, m_new, lastDate1, 4);
+                            addList(list, y_new, m_new, lastDate1, 4);
                         } else {
                             int y_new = Y;
                             int m_new = M;
                             String lastDate1 = getFirstOrLastDate(y_new, m_new, 1, true);
-                            addList(list, vo, y_new, m_new, lastDate1, 4);
+                            addList(list, y_new, m_new, lastDate1, 4);
                         }
                         break;
-                    case 7://星期日
+                    case 1://星期日
                         if (M == 1) {
                             int y_new = Y - 1;
                             int m_new = 12;
                             String lastDate1 = getFirstOrLastDate(y_new, m_new, 1, true);
-                            addList(list, vo, y_new, m_new, lastDate1, 5);
+                            addList(list, y_new, m_new, lastDate1, 5);
                         } else {
                             int y_new = Y;
-                            int m_new = M;
+                            int m_new = M-1;
                             String lastDate1 = getFirstOrLastDate(y_new, m_new, 1, true);
-                            addList(list, vo, y_new, m_new, lastDate1, 5);
+                            addList(list, y_new, m_new, lastDate1, 5);
                         }
                         break;
                 }
             }
+            first++;
             list.add(vo);
         }
         return list;
 
     }
 
-    private void addList(ArrayList<DataYMDWVo> list, DataYMDWVo vo, int y_new, int m_new, String lastDate1, int num) {
+    private void addList(ArrayList<DataYMDWVo> list, int y_new, int m_new, String lastDate1, int num) {
+        String[] dateStrings = getDateStrings(lastDate1);
+        lastDate1 = dateStrings[dateStrings.length - 1];
         for (int i = 0; i < num + 1; i++) {
-            getWek(Integer.parseInt(lastDate1) - (num - i), y_new, m_new, vo);
-            list.add(vo);
+            DataYMDWVo mDataVo = new DataYMDWVo();
+            int day=Integer.parseInt(lastDate1) - (num - i);
+            getWek(day, y_new, m_new, mDataVo);
+            list.add(mDataVo);
         }
-/*        getWek(Integer.parseInt(lastDate1)-2, y_new, m_new, vo);
-        list.add(vo);
-        getWek(Integer.parseInt(lastDate1)-1, y_new, m_new, vo);
-        list.add(vo);
-        getWek(Integer.parseInt(lastDate1), y_new, m_new, vo);
-        list.add(vo);*/
+
+
     }
 
     @NonNull
@@ -204,18 +202,27 @@ public class Util {
      * @return
      */
     private int getWek(int d, int y, int m, DataYMDWVo vo) {
-        Date date = new Date();
-        date.setYear(y);
-        date.setMonth(m);
-        date.setDate(d);
         Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        int wek = c.get(Calendar.DAY_OF_WEEK);
-        vo.setYear(String.valueOf(y));
-        vo.setMonth(String.valueOf(m));
-        vo.setDay(String.valueOf(d));
-        vo.setWeek(String.valueOf(wek));
-        return wek;
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            c.setTime(format.parse(y + "-" + m + "-" + d));
+            int wek = c.get(Calendar.DAY_OF_WEEK);
+            vo.setYear(String.valueOf(y));
+            vo.setMonth(String.valueOf(m));
+            vo.setDay(String.valueOf(d));
+            int a = 1;
+            if (wek == 1) {
+                a = 7;
+            } else {
+                a = wek - 1;
+            }
+            vo.setWeek(String.valueOf(a));
+            return wek;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return 1;
     }
 
     /**
@@ -239,7 +246,7 @@ public class Util {
     }
 
     /**
-     * 获取第一天，最后一天
+     * 获取某年某月的第一天，最后一天
      *
      * @param y       年
      * @param m       月
@@ -249,9 +256,14 @@ public class Util {
      */
     public String getFirstOrLastDate(int y, int m, int d, boolean isFasle) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = new Date(y, m, d);
+        Date parse = new Date();
+        try {
+            parse = format.parse(y + "-" + m + "-" + d);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         Calendar cale = Calendar.getInstance();
-        cale.setTime(date);
+        cale.setTime(parse);
         if (isFasle) {
             cale.add(Calendar.MONTH, 1);
             cale.set(Calendar.DAY_OF_MONTH, 0);
@@ -265,21 +277,11 @@ public class Util {
     public String getDataTime(Calendar c) {
         StringBuffer buffer = new StringBuffer();
         buffer.append(c.get(Calendar.YEAR) + "年");
-        buffer.append(c.get(Calendar.MONTH) + "月");
+        buffer.append(c.get(Calendar.MONTH) + 1 + "月");
         buffer.append(c.get(Calendar.DATE) + "日");
         return buffer.toString();
     }
 
-    /**
-     * @param selectNight
-     * @param select
-     * @param type
-     * @return
-     */
-    public int getDayOrNightOrRest(int selectNight, boolean select, int type) {
-
-        return 0;
-    }
 
     public String[] getDataArray(String data) {
         String[] split = data.split("-");
@@ -293,6 +295,7 @@ public class Util {
 
     public interface OnHandleClickListener {
         public void onClickItem();
+
     }
 
     public void setOnHandleClickListener(OnHandleClickListener onHandleClickListener) {
@@ -300,7 +303,8 @@ public class Util {
     }
 
     private static final int HANDLERTAG = 12;
-    public void HandlepostDelayed(long m ,OnHandleClickListener onHandleClickListener) {
+
+    public static void HandlepostDelayed(long m, OnHandleClickListener onHandleClickListener) {
         Handler handler = new Handler() {
             @Override
             public void handleMessage(Message msg) {

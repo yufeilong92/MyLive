@@ -69,7 +69,7 @@ public class MangeDb {
         if (list == null || list.isEmpty()) {
             UserSetting setting = new UserSetting();
             setting.setName(DataManageVo.db_name);
-            Util util = Util.get_Instance(mContext);
+            Util util = Util.get_Instance();
             String date = util.getFirstOrLastDate(0);
             String[] dataArray = util.getDataArray(date);
             setting.setTime(date);

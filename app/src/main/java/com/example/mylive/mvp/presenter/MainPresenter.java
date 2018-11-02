@@ -43,8 +43,8 @@ public class MainPresenter implements MainContract.Presenter {
      * @return
      */
     @Override
-    public ArrayList<SelectVo> getSelectVoDatas(ArrayList<DataYMDWVo> datas, int selectDay, int daynum, int type) {
-        return model.getSaveTimeDatas(datas,selectDay,daynum,type);
+    public ArrayList<SelectVo> getSelectVoDatas(ArrayList<DataYMDWVo> datas, int selectDay, int daynum, int type,int out) {
+        return model.getSaveTimeDatas(datas,selectDay,daynum,type,out);
     }
 
     /**

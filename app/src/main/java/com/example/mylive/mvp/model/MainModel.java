@@ -59,19 +59,20 @@ public class MainModel implements MainContract.Model {
      *                  type 1 为白天时，2 为第一天白班，3为第二天白班，4为第三天白班，5为第四天白班， ；
      * @param daynum    设置天数
      * @param type      0为夜间，1为白天
+     * @param out       超出下表得数据
      * @return
      */
     @Override
-    public ArrayList<SelectVo> getSaveTimeDatas(ArrayList<DataYMDWVo> datas, int selectDay, int daynum, int type) {
+    public ArrayList<SelectVo> getSaveTimeDatas(ArrayList<DataYMDWVo> datas, int selectDay, int daynum, int type, int out) {
         ArrayList<SelectVo> selectVos = getIniTSelectLists(datas, datas.size());
         TypeManage manage = new TypeManage();
         ArrayList<SelectVo> selectLists = null;
         switch (type) {
             case DataManageVo.NIGHTTYPE://夜间
-                selectLists = manage.selectType(new NightList(), selectDay, selectVos, daynum);
+                selectLists = manage.selectType(new NightList(), selectDay, selectVos, daynum, out);
                 break;
             case DataManageVo.SUNNYTYPE://白天
-                selectLists = manage.selectType(new SunnyList(), selectDay, selectVos, daynum);
+                selectLists = manage.selectType(new SunnyList(), selectDay, selectVos, daynum, out);
                 break;
             default:
 
@@ -116,7 +117,7 @@ public class MainModel implements MainContract.Model {
         UserSetting userSeting = db.findUserSeting();
         userSeting.setWriterSelectDay(writeDay);
         userSeting.setUserSelectDay(selectDay);
-        Util util = Util.get_Instance(context);
+        Util util = Util.get_Instance();
         String lastDate = util.getFirstOrLastDate(0);
         String[] dataArray = util.getDataArray(lastDate);
         userSeting.setYear(dataArray[0]);
@@ -143,7 +144,7 @@ public class MainModel implements MainContract.Model {
          * @param numday    要显示得天数
          * @return
          */
-        public ArrayList<SelectVo> addTypeTime(ArrayList<SelectVo> dates, int selectDay, int numday);
+        public ArrayList<SelectVo> addTypeTime(ArrayList<SelectVo> dates, int selectDay, int numday, int out);
     }
 
     /**
@@ -156,8 +157,8 @@ public class MainModel implements MainContract.Model {
          * @param numday    要显示得天数
          * @return
          */
-        public ArrayList<SelectVo> selectType(TypeInterface typeFace, int selectDay, ArrayList<SelectVo> dates, int numday) {
-            return typeFace.addTypeTime(dates, selectDay, numday);
+        public ArrayList<SelectVo> selectType(TypeInterface typeFace, int selectDay, ArrayList<SelectVo> dates, int numday, int out) {
+            return typeFace.addTypeTime(dates, selectDay, numday, out);
         }
     }
 //    选择得天数 type 0 为夜间时，0 为第一天夜班，1第二天夜班；
@@ -174,23 +175,25 @@ public class MainModel implements MainContract.Model {
          * @return
          */
         @Override
-        public ArrayList<SelectVo> addTypeTime(ArrayList<SelectVo> dates, int selectDay, int numday) {
+        public ArrayList<SelectVo> addTypeTime(ArrayList<SelectVo> dates, int selectDay, int numday, int out) {
 
             int length = dates.size();
             for (int i = 0; i < dates.size(); i++) {
                 SelectVo vo = dates.get(i);
-                int j = i + 1;
-                if (j == numday)
-                    switch (selectDay) {
-                        case DataManageVo.ONE_DAY://第一天夜班 正好月初为第一天上白班
-                            addListData(0, dates, numday, length, i, j);
-                            break;
-                        case DataManageVo.TWO_DAY://第二天夜班
-                            addListData(1, dates, numday, length, i, j);
-                            break;
-                    }
-
-
+                if (i < out) {
+                    continue;
+                } else {
+                    int j = i + 1;
+                    if (j == numday)
+                        switch (selectDay) {
+                            case DataManageVo.ONE_DAY://第一天夜班 正好月初为第一天上白班
+                                addListData(0, dates, numday, length, i, j);
+                                break;
+                            case DataManageVo.TWO_DAY://第二天夜班
+                                addListData(1, dates, numday, length, i, j);
+                                break;
+                        }
+                }
             }
             return dates;
         }
@@ -209,31 +212,37 @@ public class MainModel implements MainContract.Model {
          * @return
          */
         @Override
-        public ArrayList<SelectVo> addTypeTime(ArrayList<SelectVo> dates, int selectDay, int numday) {
+        public ArrayList<SelectVo> addTypeTime(ArrayList<SelectVo> dates, int selectDay, int numday, int out) {
             int length = dates.size();
             for (int i = 0; i < length; i++) {
                 SelectVo vo = dates.get(i);
-                int j = i + 1;
-                if (j == numday)
-                    switch (selectDay) {
-                        case DataManageVo.ONE_DAY://第一天
-                            addListData(2, dates, numday, length, i, j);
-                            break;
-                        case DataManageVo.TWO_DAY://第二天
-                            addListData(3, dates, numday, length, i, j);
-                            break;
-                        case DataManageVo.THREE_DAY://第三天
+                if (i < out) {
+                    continue;
+                } else {
 
-                            addListData(4, dates, numday, length, i, j);
-                            break;
-                        case DataManageVo.FOUR_DAY://第四天
 
-                            addListData(5, dates, numday, length, i, j);
-                            break;
+                    int j = i + 1;
+                    if (j == numday)
+                        switch (selectDay) {
+                            case DataManageVo.ONE_DAY://第一天
+                                addListData(2, dates, numday, length, i, j);
+                                break;
+                            case DataManageVo.TWO_DAY://第二天
+                                addListData(3, dates, numday, length, i, j);
+                                break;
+                            case DataManageVo.THREE_DAY://第三天
 
-                        default:
+                                addListData(4, dates, numday, length, i, j);
+                                break;
+                            case DataManageVo.FOUR_DAY://第四天
 
-                    }
+                                addListData(5, dates, numday, length, i, j);
+                                break;
+
+                            default:
+
+                        }
+                }
             }
             return dates;
         }

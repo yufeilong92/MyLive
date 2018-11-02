@@ -1,12 +1,17 @@
 package com.example.mylive.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -17,9 +22,12 @@ import android.widget.Toast;
 
 import com.example.mylive.R;
 import com.example.mylive.base.DataManageVo;
+import com.example.mylive.listenerInterface.CommonFace;
 import com.example.mylive.mvp.presenter.MainPresenter;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * @version V 1.0 xxxxxxxx
@@ -33,18 +41,15 @@ import java.util.ArrayList;
  */
 public class DialogUtil {
     private static volatile DialogUtil _singleton;
-    private static Context mContext;
 
-
-    private DialogUtil(Context context) {
-        this.mContext = context;
+    private DialogUtil() {
     }
 
-    public static DialogUtil get_Instance(Context context) {
+    public static DialogUtil get_Instance() {
         if (_singleton == null) {
             synchronized (DialogUtil.class) {
                 if (_singleton == null) {
-                    _singleton = new DialogUtil(context);
+                    _singleton = new DialogUtil();
                 }
             }
         }
@@ -94,7 +99,7 @@ public class DialogUtil {
     private boolean isSubmti = false;
 
 
-    public void ShowSettingDialog(final MainPresenter mPresenter, boolean mCancelable) {
+    public void ShowSettingDialog(Context mContext, final MainPresenter mPresenter, boolean mCancelable) {
         final DataManageVo vo = DataManageVo.get_Instance();
         vo.setNightOrSunnytype(DataManageVo.SUNNYTYPE);
         vo.setSelectDay(DataManageVo.ONE_DAY);
@@ -109,7 +114,7 @@ public class DialogUtil {
         final Button mBtnSure = (Button) view.findViewById(R.id.btn_sure);
         builder.setView(view);
         builder.setCancelable(mCancelable);
-        Util instance = Util.get_Instance(null);
+        Util instance = Util.get_Instance();
         final String lastDate = instance.getFirstOrLastDate(1);
         String rangeString = getRangeString();
         mTvSettingRange.setText(rangeString);
@@ -128,7 +133,7 @@ public class DialogUtil {
             public void afterTextChanged(Editable s) {
                 String s1 = mEtSettingDay.getText().toString().trim();
                 if (!StringUtls.isEmpty(s1))
-                    showTast(s1, lastDate, vo);
+                    showTast(mContext, s1, lastDate, vo);
             }
         });
         final ArrayAdapter<String> typeAdapter = new ArrayAdapter<>(mContext, android.R.layout.simple_list_item_checked, nightAndSun);
@@ -218,12 +223,11 @@ public class DialogUtil {
     }
 
     /**
-     *
-     * @param s1  输入得数字
+     * @param s1       输入得数字
      * @param lastDate 最大数字
-     * @param vo 保存数据
+     * @param vo       保存数据
      */
-    private void showTast(String s1, String lastDate, DataManageVo vo) {
+    private void showTast(Context mContext, String s1, String lastDate, DataManageVo vo) {
         String[] split = lastDate.split("-");
         lastDate = split[split.length - 1];
         if (Integer.parseInt(s1) <= 0 || Integer.parseInt(s1) > Integer.parseInt(lastDate)) {
@@ -241,7 +245,7 @@ public class DialogUtil {
      * @return
      */
     private String getRangeString() {
-        Util instance = Util.get_Instance(null);
+        Util instance = Util.get_Instance();
         String firstDate = instance.getFirstOrLastDate(0);
         String[] split = firstDate.split("-");
         firstDate = split[split.length - 1];
@@ -255,9 +259,9 @@ public class DialogUtil {
         return stringBuffer.toString().trim();
     }
 
-    public AlertDialog showDialog(Context context,String content, boolean isCancel) {
+    public static AlertDialog showDialog(Context context, String content, boolean isCancel) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.dialog);
-        View view = LayoutInflater.from(mContext).inflate(R.layout.show_dialog, null);
+        View view = LayoutInflater.from(context).inflate(R.layout.show_dialog, null);
         TextView tv_dialgo = (TextView) view.findViewById(R.id.tv_dialog_content);
         tv_dialgo.setText(content);
         builder.setView(view);
@@ -266,5 +270,62 @@ public class DialogUtil {
         AlertDialog show = builder.show();
         return show;
 
+    }
+
+    public static void showInputDialog(Activity activity, CommonFace.OnDialogClickListener dialogClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        View view = LayoutInflater.from(activity).inflate(R.layout.dailog_input_layout, null);
+        EditText mEtInputAffair = (EditText) view.findViewById(R.id.et_input_affair);
+        Button mBtnCancle = (Button) view.findViewById(R.id.btn_cancel);
+        Button mBtnSure = (Button) view.findViewById(R.id.btn_sure);
+        builder.setView(view);
+        AlertDialog dialog = builder.create();
+        Window window = dialog.getWindow();
+        window.setGravity(Gravity.BOTTOM);
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.y = 0;
+        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        window.setAttributes(lp);
+        dialog.show();
+        mEtInputAffair.setFocusable(true);
+        mEtInputAffair.requestFocus();
+        mEtInputAffair.setFocusableInTouchMode(true);
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                InputMethodManager manager = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+                manager.showSoftInput(mEtInputAffair, 0);
+            }
+        }, 300);
+        mBtnCancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogClickListener.onCancel();
+                dismissDialog(dialog);
+            }
+        });
+        mBtnSure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String trim = mEtInputAffair.getText().toString().trim();
+                if (StringUtls.isEmpty(trim)) {
+                    Toast.makeText(activity, "内容不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                dialogClickListener.onSure(trim);
+                dismissDialog(dialog);
+            }
+        });
+    }
+
+    private static void dismissDialog(AlertDialog dialog) {
+        if (dialog != null && dialog.isShowing()) {
+            try {
+                dialog.dismiss();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
